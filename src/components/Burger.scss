@@ -1,0 +1,60 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 1rem;
+}
+
+.Burger {
+  text-align: center;
+
+  img {
+    width: 100%;
+  }
+
+  .controls {
+    margin-bottom: 30px;
+
+    button {
+      width: 130px;
+      height: 70px;
+      vertical-align: middle;
+    }
+  }
+}
+
+.layers {
+  display: inline-block;
+  max-width: 350px;
+
+  img {
+    max-height: 100px;
+    position: relative;
+  }
+  .bunTop {
+    top: 20px;
+    margin-top: -20px;
+  }
+
+  .bunBottom {
+    margin-top: -18px;
+  }
+
+  .cheese {
+    top: 37px;
+    margin-top: -56px;
+    z-index: 1;
+  }
+
+  .patty {
+    top: 10px;
+    margin-top: -10px;
+  }
+
+  .tomatoes {
+    top: 30px;
+    margin-top: -36px;
+  }
+
+}
