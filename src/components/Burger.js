@@ -1,56 +1,57 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import './Burger.scss'
-import  BurgerControls from './BurgerControls'
-import BurgerLayers from './BurgerLayer'
+import BurgerControls from './BurgerControls'
+import BurgerLayers from './BurgerLayers'
 
-class Burger extends React.Component {
-  state = {
-    burgerLayers: []
-  }
+function Burger() {
+  const [burgerLayers, setBurgerLayers] = useState(null)
 
   // This function runs when the component first loads on the screen
-  componentDidMount() {
+  const getBurgerLayers = () => {
+    console.log('getBurgerLayers')
     fetch('/burgerLayers')
-    .then(res => res.json())
-    .then(res => this.setState({
-      burgerLayers: res.burgerLayers
-    }))
+      .then(res => res.json())
+      .then(res => setBurgerLayers(res.burgerLayers))
   }
 
 // This function runs every time state gets updated
-componentDidUpdate() {
-  fetch('/burgerLayers', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ burgerLayers: this.state.burgerLayers })
-  })
+const updateBurgerLayers = () =>  {
+  console.log('updatedBurgerLayers')
+  if (burgerLayers !== null) {
+  // if i make array burgerlayers it will run so If statement do here - update server
+    fetch('/burgerLayers', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ burgerLayers })
+   })
+  }
 }
 
-  addLayer = layer => {
-    const { burgerLayers } = this.state
-    this.setState({ burgerLayers: [...burgerLayers, layer]})
+useEffect(getBurgerLayers, [])
+  useEffect(updateBurgerLayers, [burgerLayers])
+
+  const addLayer = layer => {
+    setBurgerLayers([...burgerLayers, layer])
   }
   // setstate updates the state 
 
-  removeLayer = indexOfLayerClicked => {
-    const { burgerLayers } = this.state
+  const removeLayer = indexOfLayerClicked => {
     const updatedLayers = burgerLayers.filter((layer, i) =>
     i !== indexOfLayerClicked)
-    this.setState({ burgerLayers: updatedLayers})
+    setBurgerLayers(updatedLayers)
   }
 
-  render() {
-   const {burgerLayers } = this.state
+
     // console.log(layerNames)
     return (
       <div className='Burger'>
       <h1>Make your own Burger</h1>
-      < BurgerControls addLayer={this.addLayer} />
-      <BurgerLayers burgerLayers={burgerLayers} removeLayer={this.removeLayer}/>
+      < BurgerControls addLayer={addLayer} />
+      <BurgerLayers burgerLayers={burgerLayers} removeLayer={removeLayer}/>
       </div>
       
     )
-  }
+  
 }
 
 export default Burger;
