@@ -1,4 +1,6 @@
-# Check my burger app ➡️ 🌟 [React App](http://madie-burgers.surge.sh/)
+# Check my burger app
+
+➡️ 🌟 Click here [Burger App](http://madie-burgers.surge.sh/)
 
 # Getting Started with Create React App
 
